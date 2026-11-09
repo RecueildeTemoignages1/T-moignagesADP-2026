@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7de8f">
+  <title>Ton témoignage — Atmosphère de Prière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light: #fffaf0;
+      --gold-l: #f8d56b;
+      --gold: #d9821e;
+      --gold-d: #a24f0e;
+      --ink: #5e2c0a;
+      --muted: #8a4a1c;
+      --border: #e6b25a;
+      --display: "Playfair Display", "Bodoni 72", Didot, Georgia, serif;
+      --body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--body);
+      color: var(--ink);
+      line-height: 1.65;
+      /* Halo de lumière : blanc au centre, or doux qui s'étend vers les bords */
+      background-color: #fffdf8;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 42%, rgba(255,255,255,0) 50%, rgba(255,240,176,.6) 68%, rgba(255,255,255,0) 90%),
+        radial-gradient(ellipse 110% 78% at 50% 42%, #ffffff 0%, #fffdf5 30%, #fdf0c6 58%, #f7de8f 82%, #efc860 100%);
+      background-attachment: fixed;
+    }
+    /* Rayons très doux */
+    body::before {
+      content: "";
+      position: fixed; inset: -10px; z-index: 0; pointer-events: none;
+      background:
+        repeating-conic-gradient(from 0deg at 50% 42%,
+          rgba(255,255,255,.8) 0deg 3deg, rgba(255,255,255,0) 3deg 7deg,
+          rgba(255,222,130,.24) 7deg 10deg, rgba(255,255,255,0) 10deg 19deg),
+        repeating-conic-gradient(from 9deg at 50% 42%,
+          rgba(255,255,255,.6) 0deg 2deg, rgba(255,255,255,0) 2deg 11deg,
+          rgba(255,210,100,.16) 11deg 14deg, rgba(255,255,255,0) 14deg 23deg);
+      filter: blur(8px);
+      -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 0%, rgba(0,0,0,.7) 40%, transparent 88%);
+              mask-image: radial-gradient(circle at 50% 42%, #000 0%, rgba(0,0,0,.7) 40%, transparent 88%);
+    }
+    /* Nuages en halo autour du centre */
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: .6;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='n' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.0022 .0035' numOctaves='3' seed='31'/><feColorMatrix values='0 0 0 0 .96 0 0 0 0 .82 0 0 0 0 .38 0 0 0 1.8 -.55'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") center / cover;
+      -webkit-mask-image: radial-gradient(ellipse 72% 56% at 50% 42%, transparent 38%, #000 100%);
+              mask-image: radial-gradient(ellipse 72% 56% at 50% 42%, transparent 38%, #000 100%);
+    }
+    /* Éclat de lumière en haut à droite */
+    .flash {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(circle at 90% 5%, rgba(255,255,255,.95) 0, rgba(255,255,255,.6) 5%, rgba(255,244,190,0) 30%),
+        linear-gradient(122deg, transparent 0 22%, rgba(255,255,255,.5) 22.6%, transparent 24.2%),
+        linear-gradient(127deg, transparent 0 30%, rgba(255,246,200,.45) 30.5%, transparent 31.6%);
+      filter: blur(1.5px);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.9) 22%, transparent 42%);
+              mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.9) 22%, transparent 42%);
+    }
+    .page { position: relative; z-index: 1; padding: 30px 14px 20px; }
+    .container { width: 100%; max-width: 680px; margin: 0 auto; }
+    .brand { text-align: center; margin-bottom: 24px; }
+    .logo {
+      width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 36px;
+      background: radial-gradient(circle at 35% 30%, #fff 0%, #fcd58a 55%, #f0a830 100%);
+      box-shadow: 0 0 34px rgba(255,255,255,.9), 0 0 60px rgba(224,160,42,.45);
+    }
+    .event-name {
+      font-family: var(--display); font-weight: 900; font-size: 15px;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--gold-d);
+    }
+    .card {
+      background: rgba(255,255,255,.82);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 22px; padding: 36px;
+      box-shadow: 0 16px 44px rgba(138,90,11,.22);
+    }
+    h1 {
+      margin: 0 0 18px; text-align: center;
+      font-family: var(--display); font-weight: 900;
+      font-size: clamp(30px, 7vw, 44px); line-height: 1.14;
+      background: linear-gradient(180deg, #e8892a 0%, #b4540f 52%, #6e300a 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--gold-d);
+    }
+    .intro { margin: 0 auto 26px; max-width: 570px; text-align: justify; hyphens: auto; -webkit-hyphens: auto; color: var(--muted); font-size: 16px; }
+    .intro p { margin: 0 0 12px; }
+    .intro strong { color: var(--gold-d); }
+    label { display: block; margin: 20px 0 8px; font-weight: 600; font-size: 14px; }
+    .optional { color: var(--muted); font-weight: 400; }
+    textarea, input[type="text"] {
+      width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 14px 15px;
+      font: inherit; background: #fffdf7; color: var(--ink);
+    }
+    textarea { min-height: 220px; resize: vertical; }
+    textarea::placeholder, input::placeholder { color: #c4956a; }
+    textarea:focus, input:focus { outline: 3px solid rgba(200,137,26,.28); border-color: var(--gold); }
+    input:disabled { opacity: .5; cursor: not-allowed; }
+    .check { display: flex; gap: 10px; align-items: flex-start; margin-top: 17px; font-weight: 400; cursor: pointer; }
+    .check input { margin-top: 6px; accent-color: var(--gold); }
+    button {
+      width: 100%; margin-top: 26px; padding: 15px 18px; border: 0; border-radius: 14px;
+      background: linear-gradient(180deg, #fbc04f, #e08a1a); color: #3d2406;
+      font: inherit; font-weight: 600; cursor: pointer;
+      box-shadow: 0 8px 22px rgba(200,137,26,.35);
+    }
+    button:hover { background: linear-gradient(180deg, #ffcc66, #eb9520); }
+    button:disabled { opacity: .7; cursor: wait; }
+    .privacy { margin-top: 18px; text-align: center; color: var(--muted); font-size: 12.5px; }
+    .success { display: none; text-align: center; padding: 30px 10px 10px; }
+    .success-icon { font-size: 46px; margin-bottom: 10px; }
+    .success h2 { margin: 0 0 8px; font-family: var(--display); font-weight: 900; color: var(--gold-d); }
+    .success p { color: var(--muted); margin: 0; }
+
+    /* Mur de témoignages */
+    .wall { margin-top: 36px; }
+    .wall h2 {
+      text-align: center; margin: 0 0 18px;
+      font-family: var(--display); font-weight: 900; font-size: 26px; color: var(--gold-d);
+    }
+    .t {
+      background: rgba(255,255,255,.8); border: 1px solid var(--border);
+      border-left: 4px solid var(--gold); border-radius: 14px;
+      padding: 18px 20px; margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(138,90,11,.12);
+    }
+    .t-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .t-who { margin-top: 10px; font-family: var(--display); font-weight: 700; color: var(--gold-d); font-size: 15px; }
+    footer { position: relative; z-index: 1; text-align: center; padding: 18px 0 26px; color: var(--gold-d); font-size: 12px; }
+
+    /* Champ piège anti-spam */
+    .hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+    @media (max-width: 520px) { .page { padding: 18px 12px; } .card { padding: 25px 18px; border-radius: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="flash" aria-hidden="true"></div>
+  <main class="page">
+    <div class="container">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🕊️</div>
+        <div class="event-name">Atmosphère de Prière 2026</div>
+      </div>
+      <section class="card">
+        <div id="formContent">
+          <h1>Ton témoignage peut édifier quelqu’un.</h1>
+          <div class="intro">
+            <p>Nous voici dans ce précieux temps&nbsp;: 40 jours de prières inspirées par le <span style="white-space:nowrap">Saint-Esprit</span>. Une chose est sûre&nbsp;: l’Éternel ne manque pas de se glorifier.</p>
+            <p>Une parole t’a touché&nbsp;? Un temps de prière qui t’a fortifié&nbsp;? Une Présence de l’Esprit qui t’a fait du bien&nbsp;?</p>
+            <p><strong>Tu as de quoi rendre gloire, alors partage ton témoignage avec nous&nbsp;!</strong></p>
+            <p>Tu peux revenir autant de fois que tu le veux.</p>
+          </div>
+          <form id="testimonialForm" novalidate>
+            <label for="testimonial">Ton témoignage</label>
+            <textarea id="testimonial" name="testimonial" required maxlength="3000" placeholder="Partage ce que Dieu fait dans ta vie en ce moment…"></textarea>
+
+            <label for="name">Ton prénom <span class="optional">(facultatif)</span></label>
+            <input id="name" name="name" type="text" maxlength="60" placeholder="Ton prénom" autocomplete="given-name">
+
+            <!-- Honeypot : ne pas remplir -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Ne pas remplir ce champ</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <label class="check">
+              <input type="checkbox" id="anonymous" name="anonymous">
+              <span>Je souhaite rester anonyme.</span>
+            </label>
+            <label class="check">
+              <input type="checkbox" id="showOnSite" name="showOnSite">
+              <span>J’autorise l’affichage de mon témoignage sur ce site. Il apparaîtra directement, et je pourrai demander son retrait à l’équipe.</span>
+            </label>
+            <button type="submit">Envoyer mon témoignage</button>
+            <p class="privacy">Si tu ne coches pas la case d’affichage, ton témoignage sera lu uniquement par l’équipe organisatrice.</p>
+            <p id="formStatus" class="privacy" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="success" id="successMessage">
+          <div class="success-icon">🕊️</div>
+          <h2>Merci pour ton témoignage !</h2>
+          <p>Merci d’avoir pris le temps de partager ce que Dieu fait dans ta vie.</p>
+          <p id="successDetail" style="margin-top:12px;font-size:13px"></p>
+          <button type="button" id="again">Partager un autre témoignage</button>
+        </div>
+      </section>
+
+      <section class="wall" id="wall" hidden>
+        <h2>Ils ont partagé</h2>
+        <div id="wallList"></div>
+      </section>
+    </div>
+  </main>
+  <footer>© 2026 Réserve de L’Éternel</footer>
+
+  <script>
+    // URL du projet SANS "/rest/v1/" à la fin.
+    // Clé publique (publishable/anon) uniquement, jamais la service_role.
+    const SUPABASE_URL = 'https://cwflzfiehxbfbdytnjiy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_JJlyOJl72xR8x9Ng9QZgkw_aG_zkfyp';
+
+    const form = document.getElementById('testimonialForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const loadedAt = Date.now();
+
+    function showSuccess(shown) {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('successDetail').textContent = shown
+        ? 'Ton témoignage est maintenant affiché sur le site.'
+        : 'Ton témoignage a bien été transmis à l’équipe organisatrice.';
+    }
+
+    // Affiche les témoignages dont l'auteur a donné son accord
+    async function loadWall() {
+      try {
+        const url = `${SUPABASE_URL}/rest/v1/testimonials` +
+          '?select=id,testimonial,first_name,anonymous' +
+          '&show_on_site=eq.true&order=created_at.desc&limit=100';
+        const response = await fetch(url, { headers: { 'apikey': SUPABASE_ANON_KEY } });
+        if (!response.ok) return;
+        const rows = await response.json();
+        const list = document.getElementById('wallList');
+        list.replaceChildren();
+        rows.forEach(function (row) {
+          const card = document.createElement('div');
+          card.className = 't';
+          const text = document.createElement('div');
+          text.className = 't-text';
+          text.textContent = row.testimonial;
+          const who = document.createElement('div');
+          who.className = 't-who';
+          who.textContent = '— ' + ((!row.anonymous && row.first_name) ? row.first_name : 'Anonyme');
+          card.appendChild(text);
+          card.appendChild(who);
+          list.appendChild(card);
+        });
+        document.getElementById('wall').hidden = rows.length === 0;
+      } catch (error) {
+        console.error('Chargement des témoignages impossible:', error);
+      }
+    }
+
+    document.getElementById('anonymous').addEventListener('change', function () {
+      const nameField = document.getElementById('name');
+      nameField.disabled = this.checked;
+      if (this.checked) nameField.value = '';
+    });
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      formStatus.textContent = '';
+
+      // Anti-spam : champ piège rempli ou envoi trop rapide (< 3 s) => faux succès
+      const honeypot = document.getElementById('website').value;
+      if (honeypot || Date.now() - loadedAt < 3000) {
+        showSuccess(false);
+        return;
+      }
+
+      const anonymous = document.getElementById('anonymous').checked;
+      const showOnSite = document.getElementById('showOnSite').checked;
+      const payload = {
+        testimonial: document.getElementById('testimonial').value.trim(),
+        first_name: anonymous ? null : (document.getElementById('name').value.trim() || null),
+        anonymous: anonymous,
+        permission: showOnSite,
+        show_on_site: showOnSite
+      };
+
+      if (!payload.testimonial) {
+        formStatus.textContent = 'Écris ton témoignage pour continuer.';
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Envoi en cours…';
+
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/testimonials`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) {
+          console.error('Supabase response:', await response.text());
+          throw new Error('Enregistrement impossible');
+        }
+        showSuccess(showOnSite);
+        loadWall();
+      } catch (error) {
+        formStatus.textContent = 'L’envoi a échoué. Vérifie ta connexion puis réessaie.';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Réessayer';
+      }
+    });
+
+    document.getElementById('again').addEventListener('click', function () {
+      form.reset();
+      document.getElementById('name').disabled = false;
+      submitButton.disabled = false;
+      submitButton.textContent = 'Envoyer mon témoignage';
+      formStatus.textContent = '';
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('formContent').style.display = 'block';
+    });
+
+    loadWall();
+  </script>
+</body>
+</html>
